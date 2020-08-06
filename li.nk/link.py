@@ -2,7 +2,7 @@
 	li.nk : A new way to shorten
 			your links.
 
-	Author : @shardic1	
+	Author : @MPL0Y	
 """
 
 # uses Python's SQLite3 library for
