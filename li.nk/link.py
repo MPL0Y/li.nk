@@ -1,6 +1,6 @@
 """
 	li.nk : A new way to shorten
-			your links.
+	        your links.
 
 	Author : @MPL0Y	
 """
@@ -18,13 +18,26 @@ def invalid():
 	print("Invalid choice.\n")
 	main()
 
-def has_key(s):
+def append(key, url):
+	global conn
+	if(has_key(key)):
+		raise Exception(f"li.nk/{key} is not available.")
+	else:
+		conn.execute(f"""INSERT INTO links (key, url)
+	                   VALUES (?, ?);""", (key, url,))
+		conn.commit()
+		print("Your personal link is created!")
+		print(f"{url} is now: li.nk/{key}")
+
+def has_key(key):
 	global conn
 	# an efficient method to check key presence
-	rows = conn.execute(f"""SELECT *
-													FROM links
-													WHERE key = \"{s}\"""")
+	rows = conn.execute("""SELECT *
+	                       FROM links
+	                       WHERE key = ?
+	                       LIMIT 1;""", (key,))
 	exists = False
+	# check iterable of 'rows' for any element
 	for r in rows:
 		exists = True
 		break
@@ -39,6 +52,7 @@ def check():
 	else:
 		print(f"li.nk/{key} is available.\n")
 
+# avail random-generated link
 def avail():
 	global conn
 	url = input("Enter your URL: ")
@@ -49,11 +63,28 @@ def avail():
 	noun = random.choice([i.rstrip().rstrip("\n").lstrip().lstrip("\n") for i in nouns])
 	adjective = random.choice([i.rstrip().rstrip("\n").lstrip().lstrip("\n") for i in adjectives])
 	key = adjective + noun
-	conn.execute(f"""INSERT INTO links (key, url)
-									VALUES ({key}, {url});""")
-	conn.commit()
-	print("Your personal link is created!")
-	print(f"{url} is now: li.nk/{key}")
+	try:
+		append(key, url)
+	except Exception as e:
+		print(e)
+
+def avail_custom():
+	global conn
+	key = input("Enter your custom key: li.nk/")
+	if(has_key(key)):
+		print(f"li.nk/{key} is not available.")
+	else:
+		url = input("Enter your URL: ")
+		try:
+			append(key, url)
+		except Exception as e:
+			print(e)
+			return
+		print("Your personal link is created!")
+		print(f"{url} is now: li.nk/{key}")
+
+def remove():
+	pass
 
 def dump():
 	global conn
