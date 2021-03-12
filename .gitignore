@@ -3,3 +3,5 @@ outputpy.txt
 main.py
 test.py
 *.db
+/__pycache__
+*.pyc
