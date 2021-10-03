@@ -48,7 +48,7 @@ c.execute("""INSERT INTO links (key, url)
 			VALUES (?, ?)""", t)
 conn.commit()
 
-# Cleanup
+# Cleaning up
 conn.close()
 nouns.close()
 adjectives.close()
