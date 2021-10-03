@@ -20,7 +20,7 @@ def invalid():
 
 def append(key, url):
 	global conn
-	if(has_key(key)):
+	if (has_key(key)):
 		raise Exception(f"li.nk/{key} is not available.")
 	else:
 		conn.execute(f"""INSERT INTO links (key, url)
@@ -47,7 +47,7 @@ def has_key(key):
 def check():
 	global conn
 	key = input("Enter a key to check: li.nk/")
-	if(has_key(key)):
+	if (has_key(key)):
 		print(f"li.nk/{key} is not available.\n")
 	else:
 		print(f"li.nk/{key} is available.\n")
@@ -71,7 +71,7 @@ def avail():
 def avail_custom():
 	global conn
 	key = input("Enter your custom key: li.nk/")
-	if(has_key(key)):
+	if (has_key(key)):
 		print(f"li.nk/{key} is not available.")
 	else:
 		url = input("Enter your URL: ")
@@ -120,5 +120,5 @@ def main():
 	
 	# end of main
 
-if(__name__ == "__main__"):
+if (__name__ == "__main__"):
 	main()
