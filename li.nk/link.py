@@ -5,15 +5,15 @@
 	Author : @MPL0Y	
 """
 
-# uses Python's SQLite3 library for
+# Uses Python's SQLite3 library for
 # custom link database
 import sqlite3 as sql
 import random
 
-# connects the li.nk database
+# Connects the li.nk database
 conn = sql.connect("links.db")
 
-# message for invalid choice
+# Message for invalid choice
 def invalid():
 	print("Invalid choice.\n")
 	main()
@@ -31,19 +31,19 @@ def append(key, url):
 
 def has_key(key):
 	global conn
-	# an efficient method to check key presence
+	# Efficient method to check key presence
 	rows = conn.execute("""SELECT *
 	                       FROM links
 	                       WHERE key = ?
 	                       LIMIT 1;""", (key,))
 	exists = False
-	# check iterable of 'rows' for any element
+	# Check iterable of 'rows' for any element
 	for r in rows:
 		exists = True
 		break
 	return exists
 
-# check availability of a link
+# Check availability of a link
 def check():
 	global conn
 	key = input("Enter a key to check: li.nk/")
@@ -52,11 +52,11 @@ def check():
 	else:
 		print(f"li.nk/{key} is available.\n")
 
-# avail random-generated link
+# Avail random-generated link
 def avail():
 	global conn
 	url = input("Enter your URL: ")
-	# generating random key for user
+	# Generating random key for user
 	# through an adjective+verb combination
 	nouns = open("nouns.txt", "r")
 	adjectives = open("adjectives.txt", "r")
